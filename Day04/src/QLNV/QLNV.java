@@ -20,6 +20,7 @@ public class QLNV {
         }
 
         System.out.println("Danh sach nhan vien:");
+
         for (NhanVien nv : dsNhanVien) {
             System.out.println("Ma NV: " + nv.getMaNhanVien() + ", Ho ten: " + nv.gethoTen() + ", He so luong: "
                     + nv.getheSoLuong() + " Luong thuc te: " + nv.getheSoLuong() * 1800000);
