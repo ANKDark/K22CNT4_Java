@@ -6,6 +6,7 @@ public class KeThuaCanBo {
     private int tuoi;
     private String gioiTinh;
     private String diaChi;
+    private String email;
 
     static Scanner sc = new Scanner(System.in);
 
@@ -25,15 +26,47 @@ public class KeThuaCanBo {
     }
 
     public void setmaNV(String maNV) {
-        this.maNV = maNV;
+        String pattern = "[A-Z]{2}[0-9]{3}";
+        if (maNV.matches(pattern)) {
+            this.maNV = maNV;
+        } else {
+            throw new IllegalArgumentException("Ma phai 5 ki tu: 2 chu cai in hoa, 3 ki tu so");
+        }
     }
 
     public String gethoTen() {
         return hoTen;
     }
 
+    // public void sethoTen(String hoTen) {
+    // String pattern = "^[A-Za-z ]{2,}$";
+    // if (hoTen.matches(pattern)) {
+    // this.hoTen = hoTen;
+    // } else {
+    // throw new IllegalArgumentException("Ho ten chi duoc chua chu cai va khoang
+    // trang");
+    // }
+    // }
     public void sethoTen(String hoTen) {
-        this.hoTen = hoTen;
+        // Regular expression pattern to allow only alphabet characters and spaces
+        String pattern = "^[a-zA-Z\\s]+$";
+
+        if (hoTen.matches(pattern)) {
+            // Split the string into words, capitalize the first letter of each word, and
+            // rejoin them
+            String[] words = hoTen.trim().toLowerCase().split("\\s+");
+            StringBuilder capitalizedHoTen = new StringBuilder();
+
+            for (String word : words) {
+                capitalizedHoTen.append(Character.toUpperCase(word.charAt(0)))
+                        .append(word.substring(1)).append(" ");
+            }
+
+            // Set the result, trimming extra spaces at the end
+            this.hoTen = capitalizedHoTen.toString().trim();
+        } else {
+            throw new IllegalArgumentException("Invalid name format. Only letters and spaces are allowed.");
+        }
     }
 
     public int gettuoi() {
@@ -41,7 +74,11 @@ public class KeThuaCanBo {
     }
 
     public void settuoi(int tuoi) {
-        this.tuoi = tuoi;
+        if (tuoi > 0) {
+            this.tuoi = tuoi;
+        } else {
+            throw new IllegalArgumentException("Tuoi phai lon hon 0");
+        }
     }
 
     public String getgioiTinh() {
@@ -49,7 +86,11 @@ public class KeThuaCanBo {
     }
 
     public void setgioiTinh(String gioiTinh) {
-        this.gioiTinh = gioiTinh;
+        if (gioiTinh.equals("Nam") || gioiTinh.equals("Nu")) {
+            this.gioiTinh = gioiTinh;
+        } else {
+            throw new IllegalArgumentException("Gioi tinh phai la 'Nam' hoac 'Nu'");
+        }
     }
 
     public String getdiaChi() {
@@ -60,21 +101,36 @@ public class KeThuaCanBo {
         this.diaChi = diaChi;
     }
 
+    public String getemail() {
+        return email;
+    }
+
+    public void setemail(String email) {
+        String pattern = "^[A-Za-z0-9._%+-]+@gmail\\.com$";
+        if (email.matches(pattern)) {
+            this.email = email;
+        } else {
+            throw new IllegalArgumentException("Email khong hop le");
+        }
+    }
+
     public void xuatDuLieu() {
-        System.out.printf("%-12s %-15s %-5s %-8s %-10s", maNV, hoTen, tuoi, gioiTinh, diaChi);
+        System.out.printf("%-12s %-15s %-5s %-8s %-10s %-20s\n", maNV, hoTen, tuoi, gioiTinh, diaChi, email);
     }
 
     public void nhapDuLieu() {
         System.out.print("Nhap ma nhan vien: ");
-        maNV = sc.nextLine();
+        setmaNV(sc.nextLine());
         System.out.print("Nhap ho ten: ");
-        hoTen = sc.nextLine();
+        sethoTen(sc.nextLine());
         System.out.print("Nhap tuoi: ");
-        tuoi = sc.nextInt();
+        settuoi(sc.nextInt());
         sc.nextLine();
         System.out.print("Nhap gioi tinh: ");
-        gioiTinh = sc.nextLine();
+        setgioiTinh(sc.nextLine());
         System.out.print("Nhap dia chi: ");
-        diaChi = sc.nextLine();
+        setdiaChi(sc.nextLine());
+        System.out.print("Nhap email: ");
+        setemail(sc.nextLine());
     }
 }
