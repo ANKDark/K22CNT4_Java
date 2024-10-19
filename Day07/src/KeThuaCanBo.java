@@ -38,22 +38,10 @@ public class KeThuaCanBo {
         return hoTen;
     }
 
-    // public void sethoTen(String hoTen) {
-    // String pattern = "^[A-Za-z ]{2,}$";
-    // if (hoTen.matches(pattern)) {
-    // this.hoTen = hoTen;
-    // } else {
-    // throw new IllegalArgumentException("Ho ten chi duoc chua chu cai va khoang
-    // trang");
-    // }
-    // }
     public void sethoTen(String hoTen) {
-        // Regular expression pattern to allow only alphabet characters and spaces
         String pattern = "^[a-zA-Z\\s]+$";
 
         if (hoTen.matches(pattern)) {
-            // Split the string into words, capitalize the first letter of each word, and
-            // rejoin them
             String[] words = hoTen.trim().toLowerCase().split("\\s+");
             StringBuilder capitalizedHoTen = new StringBuilder();
 
@@ -61,8 +49,6 @@ public class KeThuaCanBo {
                 capitalizedHoTen.append(Character.toUpperCase(word.charAt(0)))
                         .append(word.substring(1)).append(" ");
             }
-
-            // Set the result, trimming extra spaces at the end
             this.hoTen = capitalizedHoTen.toString().trim();
         } else {
             throw new IllegalArgumentException("Invalid name format. Only letters and spaces are allowed.");
